@@ -21,6 +21,7 @@ fi
 
 init_logger
 
+VERSION=$(cat "$BASE_DIR/VERSION")
 
 print_banner
 
