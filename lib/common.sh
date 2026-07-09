@@ -15,6 +15,7 @@ source "$BASE_DIR/lib/logger.sh"
 source "$BASE_DIR/lib/config.sh"
 source "$BASE_DIR/lib/utils.sh"
 source "$BASE_DIR/lib/validator.sh"
+source "$BASE_DIR/lib/lock.sh"
 
 
 info "Enterprise Zabbix libraries loaded"
