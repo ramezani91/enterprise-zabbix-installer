@@ -24,16 +24,25 @@ init_logger
 
 print_banner
 
-
 log_info "Starting Enterprise Zabbix Installation"
 
 
-run_validation
+if [ "$DRY_RUN" = true ]; then
+
+    log_warning "Dry run mode enabled"
+    log_warning "System validation skipped"
+
+else
+
+    run_validation
+
+fi
 
 
 run_module()
 {
-    MODULE=$1
+
+MODULE=$1
 
 
     if [ "$DRY_RUN" = true ]; then
