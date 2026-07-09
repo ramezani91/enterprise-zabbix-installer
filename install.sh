@@ -29,6 +29,18 @@ print_banner
 
 log_info "Starting Enterprise Zabbix Installation"
 
+if [ "$DRY_RUN" = false ]; then
+
+    if ! check_installation; then
+
+        log_error "Installation already exists"
+        log_error "Use update.sh for upgrade"
+
+        exit 1
+
+    fi
+
+fi
 
 if [ "$DRY_RUN" = true ]; then
 
@@ -101,6 +113,10 @@ do
 
 done
 
+if [ "$DRY_RUN" = false ]; then
 
+    create_install_lock
+
+fi
 
 log_success "Enterprise Zabbix Installation Finished"
