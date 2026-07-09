@@ -16,31 +16,29 @@ system_prepare()
 {
     log_info "Starting system preparation"
 
-
-    if ! command_exists apt; then
-        log_error "APT package manager not found"
-        exit 1
-    fi
+if ! command_exists apt; then
+    log_error "APT package manager not found"
+    return 1
+fi
 
 
     log_info "Updating package repository"
 
-    apt update -y
+    apt update -y || return 1
 
 
     log_info "Installing base packages"
 
     apt install -y \
-        curl \
-        wget \
-        vim \
-        net-tools \
-        gnupg \
-        ca-certificates \
-        lsb-release \
-        unzip \
-        jq
-
+    curl \
+    wget \
+    vim \
+    net-tools \
+    gnupg \
+    ca-certificates \
+    lsb-release \
+    unzip \
+    jq || return 1    
 
     log_info "Creating directories"
 
@@ -56,8 +54,8 @@ system_prepare()
 
 
     log_success "System preparation completed"
+    return 0
 }
 
 
 
-system_prepare
