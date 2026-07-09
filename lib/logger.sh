@@ -1,98 +1,55 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# ==============================================================================
-# Enterprise Zabbix Installer
-# File: lib/logger.sh
-# Description: Logging library
-# ==============================================================================
+########################################
+# Enterprise Zabbix Logger
+########################################
 
-set -Eeuo pipefail
 
-# ---------- Colors ----------
+LOG_FILE="/tmp/enterprise-zabbix-installer.log"
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-NC='\033[0m'
 
-# ---------- Log Directory ----------
+init_logger()
+{
+    mkdir -p "$(dirname "$LOG_FILE")"
 
-PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-
-LOG_DIR="${PROJECT_ROOT}/logs"
-
-mkdir -p "${LOG_DIR}"
-
-LOG_FILE="${LOG_DIR}/installer.log"
-
-touch "${LOG_FILE}"
-
-# ---------- Timestamp ----------
-
-timestamp() {
-
-date +"%Y-%m-%d %H:%M:%S"
-
+    touch "$LOG_FILE"
 }
 
-# ---------- Logger ----------
 
-_write_log() {
+write_log()
+{
+    LEVEL=$1
+    MESSAGE=$2
 
-local LEVEL="$1"
+    TIME=$(date "+%Y-%m-%d %H:%M:%S")
 
-local MESSAGE="$2"
-
-echo "$(timestamp) [$LEVEL] ${MESSAGE}" >> "${LOG_FILE}"
-
+    echo "$TIME [$LEVEL] $MESSAGE" >> "$LOG_FILE"
 }
 
-log_info() {
 
-echo -e "${BLUE}[INFO]${NC} $1"
-
-_write_log INFO "$1"
-
+log_info()
+{
+    write_log "INFO" "$1"
+    echo -e "\033[0;34m[INFO]\033[0m $1"
 }
 
-log_success() {
 
-echo -e "${GREEN}[ OK ]${NC} $1"
-
-_write_log SUCCESS "$1"
-
+log_success()
+{
+    write_log "SUCCESS" "$1"
+    echo -e "\033[0;32m[OK]\033[0m $1"
 }
 
-log_warn() {
 
-echo -e "${YELLOW}[WARN]${NC} $1"
-
-_write_log WARNING "$1"
-
+log_warning()
+{
+    write_log "WARNING" "$1"
+    echo -e "\033[1;33m[WARN]\033[0m $1"
 }
 
-log_error() {
 
-echo -e "${RED}[FAIL]${NC} $1"
-
-_write_log ERROR "$1"
-
-}
-
-log_title() {
-
-echo
-
-echo "==================================================="
-
-echo "$1"
-
-echo "==================================================="
-
-echo
-
-_write_log TITLE "$1"
-
+log_error()
+{
+    write_log "ERROR" "$1"
+    echo -e "\033[0;31m[ERROR]\033[0m $1"
 }
