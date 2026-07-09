@@ -10,6 +10,14 @@ BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source "$BASE_DIR/lib/common.sh"
 
+DRY_RUN=false
+
+
+if [ "$1" == "--dry-run" ]; then
+
+    DRY_RUN=true
+
+fi
 
 init_logger
 
@@ -27,6 +35,15 @@ run_module()
 {
     MODULE=$1
 
+
+    if [ "$DRY_RUN" = true ]; then
+
+        log_warning "DRY RUN: Skipping execution of $MODULE"
+        return
+
+    fi
+
+
     log_info "Running module: $MODULE"
 
 
@@ -42,8 +59,6 @@ run_module()
 
     log_success "Module completed: $MODULE"
 }
-
-
 
 MODULES=(
 
