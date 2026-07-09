@@ -39,12 +39,17 @@ backup_file()
 
 print_banner()
 {
-echo "
-========================================
- Enterprise Zabbix Installer
- Automated Deployment Framework
-========================================
-"
+    echo ""
+    echo "========================================"
+    echo " Enterprise Zabbix Installer"
+    echo " Automated Deployment Framework"
+
+    if [ -n "$VERSION" ]; then
+        echo " Version: $VERSION"
+    fi
+
+    echo "========================================"
+    echo ""
 }
 
 

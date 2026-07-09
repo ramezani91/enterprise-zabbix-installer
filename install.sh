@@ -23,6 +23,8 @@ init_logger
 
 VERSION=$(cat "$BASE_DIR/VERSION")
 
+init_logger
+
 print_banner
 
 log_info "Starting Enterprise Zabbix Installation"
