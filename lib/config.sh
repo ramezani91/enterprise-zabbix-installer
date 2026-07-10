@@ -22,7 +22,13 @@ export OS_REQUIRED="Ubuntu"
 export DB_TYPE="PostgreSQL"
 export DB_NAME="zabbix"
 export DB_USER="zabbix"
+export POSTGRES_PACKAGE="postgresql"
+export POSTGRES_CLIENT_PACKAGE="postgresql-client"
+export POSTGRES_SERVICE="postgresql"
 
+export POSTGRES_SUPERUSER="postgres"
+
+export ZABBIX_DB_SCHEMA="/usr/share/zabbix/sql-scripts/postgresql/server.sql.gz"
 
 # Services
 export ZABBIX_SERVER_SERVICE="zabbix-server"
